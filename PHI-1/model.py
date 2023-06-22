@@ -9,18 +9,9 @@ from torchscale.torchscale.component.embedding import PositionalEmbedding
 import torch
 from x_transformers.x_transformers import TransformerWrapper, Decoder, AutoregressiveWrapper
 
-model = TransformerWrapper(
-    num_tokens = 20000,
-    max_seq_len = 1024,
-    attn_layers = Decoder(
-        dim = 512,
-        depth = 12,
-        heads = 8
-    )
-).cuda()
 
 
-class phi(nn.Module):
+class phi1(nn.Module):
     def __init__(self):
         super().__init__()
         # Instantiate Clip Vit-l/14
@@ -95,4 +86,4 @@ phi2 = TransformerWrapper(
         )
     )
 
-model = AutoregressiveWrapper(phi2)
+phi2 = AutoregressiveWrapper(phi2)
