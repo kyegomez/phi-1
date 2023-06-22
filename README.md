@@ -10,6 +10,36 @@ This model is a decoder-only transformer based on the FlashAttention implementat
 
 ## Model Architecture Components
 
+## Hyperparameters
+Here is a simple list of the hyperparameters mentioned in the provided model description:
+
+- Model Architecture:
+  - Number of Layers: 24 for phi-1 model, 20 for phi1-small model
+  - Hidden Dimension: 2048 for phi-1 model, 1024 for phi1-small model
+  - MLP-Inner Dimension: 8192 for phi-1 model, 4096 for phi1-small model
+  - Attention Heads: 32 for phi-1 model, 16 for phi1-small model
+  - Rotary Position Embedding Dimension: 32
+
+- Training Hyperparameters:
+  - Sequence Length: 2048
+  - Dropout Rate (Attention and Residual): 0.1
+  - Optimization Algorithm: AdamW
+  - Learning Rate Schedule: Linear-warmup-linear-decay
+  - Gradient Accumulation: Included in effective batch size
+  - Batch Sizes:
+    - Pretraining: Effective batch size of 1024
+    - Finetuning: Effective batch size of 256
+  - Maximum Learning Rate:
+    - Pretraining: 1e-3
+    - Finetuning: 1e-4
+  - Warmup Steps:
+    - Pretraining: 750
+    - Finetuning: 50
+  - Weight Decay:
+    - Pretraining: 0.1
+    - Finetuning: 0.01
+
+
 ### Multihead Attention (MHA)
 The model utilizes the FlashAttention implementation of multihead attention (MHA) [DFE+22]. MHA allows the model to attend to different parts of the input sequence simultaneously, capturing both local and global dependencies. It splits the input into multiple heads, performs separate attention calculations for each head, and then combines the results. Each head has its own learned weights, enabling the model to focus on different aspects of the input.
 
