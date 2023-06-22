@@ -55,13 +55,9 @@ class phi1(nn.Module):
             output_projection=self.output_projection
         )
 
-    def forward(self, text_tokens, images, **kwargs):
-        images = self.clip_model(pixel_values=images)["last_hidden_state"]
-        images = self.perceive(images).squeeze(1)
-        images = self.image_proj(images)
-
+    def forward(self, text_tokens, **kwargs):
         model_input = self.decoder.forward_embedding(text_tokens)[1]
-        model_input = torch.cat([model_input[:, 0:2], images, model_input[:, 2:]], dim=1)
+        model_input = torch.cat([model_input[:, 0:2],  model_input[:, 2:]], dim=1)
         model_input = self.decoder.forward_embedding(model_input, token_embedding=model_input)[0]
 
         return self.decoder(model_input, passed_x=model_input)[0]
@@ -86,4 +82,4 @@ phi2 = TransformerWrapper(
         )
     )
 
-phi2 = AutoregressiveWrapper(phi2)
+phi2 = AutoregressiveWrapper(phi2)  
