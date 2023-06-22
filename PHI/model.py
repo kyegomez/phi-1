@@ -75,11 +75,11 @@ phi2 = TransformerWrapper(
         # tokenizer=tokenizer, # !
         attn_layers = Decoder(
             dim=2048, # 2048
-            depth=16, # 16
+            depth=24, # 16
             dim_head=128,
             heads=8,
             rotary_xpos=True,
-            attn_flash = True,
+            flash_attn = True,
             qk_norm=True,
             attn_qk_norm=True,
             attn_qk_norm_dim_scale=True # set this to True, in addition to `attn_qk_norm = True`
