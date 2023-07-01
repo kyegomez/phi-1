@@ -184,3 +184,46 @@ Join us on this exciting journey to create a powerful, efficient, and intelligen
 * [Finetune on this](https://huggingface.co/datasets/Open-Orca/OpenOrca)
 
 * [Create synthetic datasets with the Distiller](https://github.com/Agora-X/The-Distiller)
+
+# Implementing the Phi-1 Model
+
+This guide is meant to assist you in implementing our Phi-1 model based on the decoder-only transformer model [VSP+ 17] using the FlashAttention implementation of multihead attention (MHA) [DFE+ 22].
+
+## 1. Architecture
+
+1. **Phi-1 model**: Implement an architecture with the following specifications:
+   - 24 layers
+   - Hidden dimension of 2048
+   - MLP-inner dimension of 8192
+   - 32 attention heads of dimension 64 each
+2. **Phi1-small model**: Implement an architecture with the following specifications:
+   - 20 layers
+   - Hidden dimension of 1024
+   - MLP-inner dimension of 4096
+   - 16 attention heads of dimension 64 each
+3. For both architectures, include rotary position embedding [SLP+ 21] with a rotary dimension of 32.
+4. Tokenize your data using the same tokenizer as codegen-350M-mono [NPH+ 22].
+
+## 2. Pretraining
+
+1. Concatenate your dataset into a single dimensional array, using the "⟨∣endoftext∣⟩" token for separating files.
+2. Train your model on a sequence length of 2048 sliced from your dataset array with next-token prediction loss.
+3. Utilize the AdamW optimizer and a linear-warmup-linear-decay learning rate schedule.
+4. Use attention and residual dropout of 0.1.
+5. Execute your training on 8 Nvidia-A100 GPUs using deepspeed.
+6. Use the following specifications for training:
+   - Effective batch size: 1024
+   - Maximum learning rate: 1e-3
+   - Warmup over 750 steps
+   - Weight decay: 0.1
+7. Run your training for a total of 36,000 steps, using the checkpoint at 24,000 steps as your Phi-1-base.
+
+## 3. Finetuning
+
+1. Finetune your Phi-1-base model on your respective finetuning dataset.
+2. Follow the same setup as pretraining, but with different hyperparameters:
+   - Effective batch size: 256
+   - Maximum learning rate: 1e-4
+   - Warmup over 50 steps
+   - Weight decay: 0.01
+3. Run your training for a total of 6,000 steps and pick the best checkpoint (saved every 1000 steps).
