@@ -1,110 +1,184 @@
-# phi-1
-Plug in and play implementation of " Textbooks Are All You Need", ready for training, inference, and dataset generation
+# READY FOR TRAINING!!!!!!
 
-# Model Card
+# Agora
+Agora is an new open source Multi-Modality AI Research Organization devoted to advancing Humanity!
 
-## Model Description
-
-This model is a decoder-only transformer based on the FlashAttention implementation of multihead attention (MHA) [DFE+22]. It follows a parallel configuration, similar to recent models such as CodeGen [NPH+22], PaLM [CND+22], and GPT-NeoX [BBH+22], using MHA and MLP layers. The architecture consists of 24 layers for the 1.3 billion parameter phi-1 model and 20 layers for the 350 million parameter phi1-small model. The hidden dimension is 2048 for phi-1 and 1024 for phi1-small, with an MLP-inner dimension of 8192 and 4096, respectively. Both models have attention heads of dimension 64. The rotary position embedding with a rotary dimension of 32, introduced in [SLP+21], is utilized. The architectural choices are adopted from [NPH+22]. The tokenizer used is the same as codegen-350M-mono [NPH+22]. Notable techniques such as Fill-In-the-Middle (FIM) [BJT+22] or Multi-Query-Attention (MQA) [RSR+20] are not incorporated, which could further enhance performance and efficiency [LAZ+23].
+Since Phi is ready to train Agora is actively seeking cloud providers or grant providers to train this all-new revolutionary model and release it open source, if you would like to learn more please email me at `kye@apac.ai`
 
 
-## Model Architecture Components
+![Agora banner](agora-banner.png)
 
-## Hyperparameters
-Here is a simple list of the hyperparameters mentioned in the provided model description:
-
-- Model Architecture:
-  - Number of Layers: 24 for phi-1 model, 20 for phi1-small model
-  - Hidden Dimension: 2048 for phi-1 model, 1024 for phi1-small model
-  - MLP-Inner Dimension: 8192 for phi-1 model, 4096 for phi1-small model
-  - Attention Heads: 32 for phi-1 model, 16 for phi1-small model
-  - Rotary Position Embedding Dimension: 32
-
-- Training Hyperparameters:
-  - Sequence Length: 2048
-  - Dropout Rate (Attention and Residual): 0.1
-  - Optimization Algorithm: AdamW
-  - Learning Rate Schedule: Linear-warmup-linear-decay
-  - Gradient Accumulation: Included in effective batch size
-  - Batch Sizes:
-    - Pretraining: Effective batch size of 1024
-    - Finetuning: Effective batch size of 256
-  - Maximum Learning Rate:
-    - Pretraining: 1e-3
-    - Finetuning: 1e-4
-  - Warmup Steps:
-    - Pretraining: 750
-    - Finetuning: 50
-  - Weight Decay:
-    - Pretraining: 0.1
-    - Finetuning: 0.01
+[Join our Agora discord and contribute to this project or 40+ others!](https://discord.gg/qUtxnK2NMf)
 
 
-### Multihead Attention (MHA)
-The model utilizes the FlashAttention implementation of multihead attention (MHA) [DFE+22]. MHA allows the model to attend to different parts of the input sequence simultaneously, capturing both local and global dependencies. It splits the input into multiple heads, performs separate attention calculations for each head, and then combines the results. Each head has its own learned weights, enabling the model to focus on different aspects of the input.
+# Phi: Ultra-Fast and Ultra-Intelligent SOTA Language Model 🚀🌌
 
-### MLP Layers
-The model incorporates MLP (Multi-Layer Perceptron) layers in parallel configuration alongside the MHA layers. MLP layers introduce non-linearities and enable the model to capture complex relationships within the input data. By combining MHA and MLP layers, the model can effectively learn both local and global dependencies and capture intricate patterns in the data.
+![Phi Next Generation Open Source Language Model](/phi-banner.png)
 
-### Rotary Position Embedding
-To incorporate positional information, the model utilizes rotary position embedding [SLP+21]. This technique introduces an additional dimension called the rotary dimension. It allows the model to learn positional encodings in a continuous manner, improving its ability to generalize across varying sequence lengths. The rotary position embedding enables the model to understand the relative positions of tokens within the input sequence.
-
-### Decoder-Only Transformer
-The model follows a decoder-only transformer architecture, which means it lacks an encoder component. The decoder is responsible for generating output sequences based on the encoded input and learned attention patterns. This architecture is commonly used in tasks where auto-regressive generation is required, such as language modeling and text generation.
-
-### Hidden Dimensions and Attention Heads
-The phi-1 model has a hidden dimension of 2048, while the phi1-small model has a hidden dimension of 1024. The hidden dimension determines the capacity of the model to capture complex representations of the input data.
-
-Both models employ attention heads with a dimension of 64. Attention heads allow the model to focus on different aspects of the input sequence simultaneously. By using multiple attention heads, the model can learn diverse and complementary representations, enhancing its ability to capture intricate patterns and dependencies.
-
-### Number of Layers
-The phi-1 model consists of 24 layers, while the smaller phi1-small model has 20 layers. The number of layers influences the depth and expressive power of the model. Deeper models can capture more intricate dependencies but may require more computational resources.
-
-### MLP-Inner Dimension
-The MLP-inner dimension is 8192 for phi-1 and 4096 for phi1-small. The MLP-inner dimension defines the dimensionality of the hidden layers within the MLP component. It determines the model's capacity to model complex relationships and nonlinearities within the data.
-
-By combining these various components, the model can effectively capture and encode the input sequence's information, allowing for high-quality generation and understanding of the task at hand.
+Phi is a state-of-the-art language model that pushes the boundaries of natural language understanding and generation. Designed for high performance and efficiency, Phi is built upon advanced techniques that make it a strong contender against the likes of OpenAI's GPT-4 and PALM.
 
 
 
-## Model Training
+# Usage
+Get started:
 
-- **Pretraining Dataset**: The model is pretrained on the CodeTextbook dataset, which includes a filtered code-language corpus and synthetic textbooks.
-- **Finetuning Dataset**: The model is further finetuned on the CodeExercises dataset.
-
-### Pretraining Details
-
-- **Training Method**: The respective datasets are concatenated into a single dimensional array using the "⟨∣endoftext∣⟩" token as a separator.
-- **Sequence Length**: The models are trained on a sequence length of 2048, sliced from the dataset array, with a next-token prediction loss.
-- **Training Hardware**: The model is trained on 8 Nvidia-A100 GPUs using deepspeed.
-- **Optimization**: The training utilizes fp16 training with the AdamW optimizer and a linear-warmup-linear-decay learning rate schedule.
-- **Dropout**: Attention and residual dropout of 0.1 is applied.
-- **Training Time**: The pretrained base model, phi-1-base, is obtained in under 4 days of training.
-
-### Finetuning Details
-
-- **Finetuning Method**: Finetuning is performed on phi-1-base using the CodeExercises dataset.
-- **Hyperparameters**: The same setup as pretraining is used, but with different hyperparameters. The effective batch size is 256, maximum learning rate is 1e-4 with 50 steps of warmup, and weight decay is 0.01.
-- **Training Time**: Finetuning to obtain phi-1 requires an additional 7 hours on the same hardware.
-
-## Performance
-
-- **Pretraining Accuracy**: phi-1-base achieves a 29% accuracy on the HumanEval dataset.
-- **Evaluation Metrics**: Further evaluation metrics are not provided in the given model description.
+1. Clone the repository and install the required packages.
 
 
-## References
+```
+git clone https://github.com/kyegomez/Phi
+cd Phi
+pip3 install -r requirements.txt
+cd Phi
+python3 training_distributed.py
+```
 
-- [VSP+17] Reference to the decoder-only
+# Training
 
- transformer paper used as a model.
-- [DFE+22] Reference to the FlashAttention implementation of multihead attention.
-- [NPH+22] Reference to the CodeGen paper.
-- [CND+22] Reference to the PaLM paper.
-- [BBH+22] Reference to the GPT-NeoX paper.
-- [SLP+21] Reference to the rotary position embedding paper.
-- [BJT+22] Reference to the Fill-In-the-Middle (FIM) technique.
-- [RSR+20] Reference to the Multi-Query-Attention (MQA) technique.
-- [LAZ+23] Reference to the paper mentioning techniques that could enhance performance and efficiency.
+First:
 
-(Note: The references provided above are placeholders and need to be replaced with the actual references from the model's source documentation.)
+`Accelerate Config`
+
+Enable Deepspeed 3: 
+
+`Accelerate launch train_distributed_accelerate.py`
+
+
+
+## Dataset building building
+
+Data
+You can preprocess a different dataset in a way similar to the C4 dataset used during training by running the build_dataset.py script. This will pre-tokenize, chunk the data in blocks of a specified sequence length, and upload to the Huggingface hub. For example:
+
+```python3 Phi/build_dataset.py --seed 42 --seq_len 8192 --hf_account "HUGGINGFACE APIKEY" --tokenizer "EleutherAI/gpt-neox-20b" --dataset_name "EleutherAI/the_pile_deduplicated"```
+
+
+
+# Inference
+
+```python3 inference.py "My dog is very cute" --seq_len 256 --temperature 0.8 --filter_thres 0.9 --model "phi"``` 
+
+Not yet we need to submit model to pytorch hub
+
+
+
+## Model Architecture 🧠🔧
+
+```python
+model = TransformerWrapper(
+        num_tokens=64007,
+        max_seq_len=8192,
+        use_abs_pos_emb=False,
+        tokenizer=tokenizer, # !
+        embedding_provider=AndromedaEmbedding(),
+        attn_layers = Decoder(
+            dim=128, # 2048
+            depth=8, # 16
+            dim_head=128,
+            heads=8,
+            alibi_pos_bias=True,
+            alibi_num_heads=4,
+            rotary_xpos=True,
+            attn_flash = True,
+            deepnorm=True,
+            shift_tokens=1,
+            attn_one_kv_head = True,
+            qk_norm=True,
+            attn_qk_norm=True,
+            attn_qk_norm_dim_scale=True # set this to True, in addition to `attn_qk_norm = True`
+        )
+    )
+```
+
+## Roadmap 🗺️📍
+
+1. **Training phase**: Train Phi on a large-scale dataset to achieve SOTA performance in various natural language processing tasks.
+
+2. **World-class inference infrastructure**: Establish a robust and efficient infrastructure that leverages techniques such as:
+
+   - Model quantization: Reduce memory and computational requirements without significant loss in performance.
+   - Distillation: Train smaller, faster models that retain the knowledge of the larger model.
+   - Optimized serving frameworks: Deploy Phi using efficient serving frameworks, such as NVIDIA Triton or TensorFlow Serving, for rapid inference.
+
+3. **Continuous improvement**: Continuously fine-tune Phi on diverse data sources and adapt it to new tasks and domains.
+
+4. **Community-driven development**: Encourage open-source contributions, including pre-processing improvements, advanced training techniques, and novel use cases.
+
+## Why Phi? 🌠💡
+
+Phi can potentially be finetuned with 100k+ token sequence length.
+Phi is a state-of-the-art language model that leverages advanced techniques to optimize its performance and efficiency. Some of these techniques include alibi positional bias, rotary position encodings (xpos), flash attention, and deep normalization (deepnorm). Let's explore the benefits of these techniques and provide some usage examples.
+
+### Alibi Positional Bias
+
+Alibi positional bias allows the model to learn relative positions between tokens, enabling it to better capture the relationships and dependencies between tokens in a sequence.
+
+Usage example:
+
+```python
+attn_layers = Decoder(
+    ...
+    alibi_pos_bias=True,
+    alibi_num_heads=4,
+    ...
+)
+```
+
+### Rotary Position Encodings (xpos)
+
+Rotary position encodings introduce a more efficient way to encode positions in the input sequence. They avoid the need for absolute positional embeddings, reducing the model's memory footprint and improving training speed.
+
+Usage example:
+
+```python
+attn_layers = Decoder(
+    ...
+    rotary_xpos=True,
+    ...
+)
+```
+
+### Flash Attention
+
+Flash attention speeds up the self-attention mechanism by reducing the number of attention computations. It accelerates training and inference while maintaining a high level of performance.
+
+Usage example:
+
+```python
+attn_layers = Decoder(
+    ...
+    attn_flash=True,
+    ...
+)
+```
+
+Usage example:
+
+```python
+attn_layers = Decoder(
+    ...
+    deepnorm=True,
+    ...
+)
+```
+
+### Deep Normalization (deepnorm)
+
+Deep normalization is a technique that normalizes the activations within a layer, helping with training stability and convergence. It allows the model to better learn complex patterns and generalize to unseen data.
+
+# Phi Principles
+- **Efficiency**: Phi incorporates cutting-edge optimization techniques, such as attention flashing, rotary position encodings, and deep normalization, resulting in efficient training and inference.
+
+- **Flexibility**: The modular design of Phi allows for easy adaptation to various tasks and domains, making it a versatile choice for a wide range of applications.
+
+- **Scalability**: Phi's architecture is designed to scale with the ever-growing computational resources and data sizes, ensuring its continuous relevance in the NLP landscape.
+
+- **Community-driven**: As an open-source project, Phi thrives on contributions from the community, fostering an environment of collaboration, innovation, and continuous improvement.
+
+Join us on this exciting journey to create a powerful, efficient, and intelligent language model that will revolutionize the NLP landscape! 🚀🌟
+
+## Todo:
+
+* Pretrain
+
+* [Finetune on this](https://huggingface.co/datasets/Open-Phi/OpenPhi)

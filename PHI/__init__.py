@@ -1,1 +1,2 @@
-from PHI.model import phi1, phi2
+from old.traingv2 import TrainAndromeda
+from old.build_dataset import built_dataset
