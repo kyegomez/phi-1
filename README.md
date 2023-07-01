@@ -1,7 +1,7 @@
 # READY FOR TRAINING!!!!!!
 
 # Agora
-Agora is an new open source Multi-Modality AI Research Organization devoted to advancing Humanity!
+Agora is an all-new open source Multi-Modality AI Research Organization devoted to advancing Humanity!
 
 Since Phi is ready to train Agora is actively seeking cloud providers or grant providers to train this all-new revolutionary model and release it open source, if you would like to learn more please email me at `kye@apac.ai`
 
@@ -13,7 +13,7 @@ Since Phi is ready to train Agora is actively seeking cloud providers or grant p
 
 # Phi: Ultra-Fast and Ultra-Intelligent SOTA Language Model 🚀🌌
 
-![Phi Next Generation Open Source Language Model](/phi-banner.png)
+[Textbooks Are All You Need](https://arxiv.org/abs/2306.11644)
 
 Phi is a state-of-the-art language model that pushes the boundaries of natural language understanding and generation. Designed for high performance and efficiency, Phi is built upon advanced techniques that make it a strong contender against the likes of OpenAI's GPT-4 and PALM.
 
