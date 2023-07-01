@@ -179,6 +179,6 @@ Join us on this exciting journey to create a powerful, efficient, and intelligen
 
 ## Todo:
 
-* Pretrain
+* [Pretrain on Falcon](https://huggingface.co/datasets/tiiuae/falcon-refinedweb)
 
 * [Finetune on this](https://huggingface.co/datasets/Open-Phi/OpenPhi)
