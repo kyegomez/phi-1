@@ -17,11 +17,7 @@ Get started:
 
 
 ```
-git clone https://github.com/kyegomez/Phi
-cd Phi
-pip3 install -r requirements.txt
-cd Phi
-python3 training_distributed.py
+pip install phi-torch
 ```
 
 # Training
