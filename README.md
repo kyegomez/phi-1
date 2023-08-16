@@ -1,15 +1,6 @@
-# READY FOR TRAINING!!!!!!
-
-# Agora
-Agora is an all-new open source Multi-Modality AI Research Organization devoted to advancing Humanity!
+[![Multi-Modality](agorabanner.png)](https://discord.gg/qUtxnK2NMf)
 
 Since Phi is ready to train Agora is actively seeking cloud providers or grant providers to train this all-new revolutionary model and release it open source, if you would like to learn more please email me at `kye@apac.ai`
-
-
-![Agora banner](agora-banner.png)
-
-[Join our Agora discord and contribute to this project or 40+ others!](https://discord.gg/qUtxnK2NMf)
-
 
 # Phi: Ultra-Fast and Ultra-Intelligent SOTA Language Model 🚀🌌
 
