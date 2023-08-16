@@ -16,7 +16,7 @@ Get started:
 1. Clone the repository and install the required packages.
 
 
-```
+```bash
 pip install phi-torch
 ```
 
