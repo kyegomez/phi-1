@@ -1,11 +1,10 @@
-from optimus_prime import TransformerWrapper, AutoregressiveWrapper, AndromedaEmbedding, Decoder
+from Phi.core.transformer import Transformer, Decoder
+from Phi.core.autoregressive_wrapper import AutoregressiveWrapper 
 
-Phi = TransformerWrapper(
+Phi = Transformer(
     num_tokens=64007,
     max_seq_len=8192,
     use_abs_pos_emb=False,
-    # tokenizer=tokenizer,
-    embedding_provider=AndromedaEmbedding(),
     attn_layers = Decoder(
         dim=2560, # 2048
         depth=32, # 16
@@ -15,8 +14,6 @@ Phi = TransformerWrapper(
         alibi_num_heads=12,
         rotary_xpos=True,
         attn_flash = True,
-        deepnorm=True,
-        shift_tokens=1,
         attn_one_kv_head = True,
         qk_norm=True,
         attn_qk_norm=True,

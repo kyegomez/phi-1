@@ -1,7 +1,7 @@
 import torch
-from PHI import phi2
+from Phi.model import Phi
 
 
 x = torch.randint(0, 256, (1, 1024)).cuda()
 
-phi2(x) # (1, 1024, 20000)
+Phi(x) # (1, 1024, 20000)
