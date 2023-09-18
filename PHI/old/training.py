@@ -163,7 +163,7 @@ def train(args):
     remove_columns = ['title']
 
 
-    dataset = dataset.map(Phi.decoder.tokenizer, batched=True,
+    dataset = dataset.map(phi.decoder.tokenizer, batched=True,
                           batch_size=128, remove_columns=remove_columns)
 
     train_dataloader = DataLoader(

@@ -1,1 +1,1 @@
-from Phi.model import Phi
+from phi.model import Phi

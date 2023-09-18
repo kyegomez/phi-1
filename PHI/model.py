@@ -1,5 +1,5 @@
-from Phi.core.transformer import Transformer, Decoder
-from Phi.core.autoregressive_wrapper import AutoregressiveWrapper 
+from phi.core.transformer import Transformer, Decoder
+from phi.core.autoregressive_wrapper import AutoregressiveWrapper 
 
 Phi = Transformer(
     num_tokens=64007,

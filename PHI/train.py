@@ -41,8 +41,8 @@ from transformers import (
     set_seed,
 )
 
-from Phi.model import Phi
-from Phi.utils.stable_adamw import StableAdamWUnfused
+from phi.model import Phi, Transformer
+from phi.utils.stable_adamw import StableAdamWUnfused
 
 # state = AcceleratorState()
 

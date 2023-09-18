@@ -10,14 +10,16 @@ Phi is a state-of-the-art language model that pushes the boundaries of natural l
 
 
 
-# Usage
+# Install
 Get started:
-
-1. Clone the repository and install the required packages.
-
 
 ```bash
 pip install phi-torch
+```
+
+# Usage
+```
+
 ```
 
 # Training
